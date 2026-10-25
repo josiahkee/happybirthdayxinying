@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#F7FAFE">
+  <title>for xin ying !!</title>
+  <meta name="description" content="Days to xin ying's birthday">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'><rect x='2' y='9' width='12' height='5' fill='%2354A6F7'/><rect x='2' y='8' width='12' height='2' fill='%23FFFFFF'/><rect x='4' y='5' width='8' height='3' fill='%238CC5FA'/><rect x='4' y='4' width='8' height='1' fill='%23FFFFFF'/><rect x='7' y='1' width='2' height='3' fill='%23F6B93B'/><rect x='1' y='14' width='14' height='1' fill='%232C4C70'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="vellum" aria-hidden="true"></div>
+  <canvas id="fx" aria-hidden="true"></canvas>
+
+  <!-- Tester Toolbar (hidden until password is entered) -->
+  <div id="testerBar" class="tester-bar" hidden>
+    <span class="px-label">preview</span>
+    <div class="tester-btns">
+      <button type="button" id="tstCards" class="px-chip-btn">Unlock all days</button>
+      <button type="button" id="tstBday" class="px-chip-btn">30 Oct birthday</button>
+      <button type="button" id="tstMidnight" class="px-chip-btn">5s midnight test</button>
+      <button type="button" id="tstExit" class="px-chip-btn danger">Lock &amp; reset</button>
+    </div>
+  </div>
+
+  <!-- Welcome sound prompt -->
+  <div id="gate" class="overlay gate">
+    <div class="gate-card px-frame">
+      <span class="px-corner tl"></span><span class="px-corner tr"></span><span class="px-corner bl"></span><span class="px-corner br"></span>
+      <div class="gate-compass">
+        <img src="photos/compass.jpg" alt="Stray Kids compass" class="compass-img">
+      </div>
+      <h1 class="gate-title">hi xin ying!!</h1>
+      <p class="muted gate-sub">turn on your sound before going in :)</p>
+      <div class="gate-actions">
+        <button type="button" id="gateSound" class="btn btn-primary">Sound on</button>
+        <button type="button" id="gateMute" class="btn btn-ghost">Mute</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Countdown Header -->
+  <header class="hud">
+    <div class="hud-top">
+      <button type="button" id="keyBtn" class="key-btn" aria-label="Unlock preview" title="Preview password">
+        <svg viewBox="0 0 20 20" shape-rendering="crispEdges" aria-hidden="true">
+          <rect x="4" y="5" width="6" height="2" fill="currentColor"/>
+          <rect x="3" y="7" width="2" height="6" fill="currentColor"/>
+          <rect x="9" y="7" width="2" height="6" fill="currentColor"/>
+          <rect x="4" y="13" width="6" height="2" fill="currentColor"/>
+          <rect x="6" y="9" width="2" height="2" fill="currentColor"/>
+          <rect x="11" y="9" width="6" height="2" fill="currentColor"/>
+          <rect x="13" y="11" width="2" height="2" fill="currentColor"/>
+          <rect x="16" y="11" width="2" height="3" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+
+    <h1 class="hud-title" id="hudTitle">Days to xin ying's birthday</h1>
+
+    <div class="scoreboard px-frame">
+      <span class="px-corner tl"></span><span class="px-corner tr"></span><span class="px-corner bl"></span><span class="px-corner br"></span>
+      <div class="lamp lamp-red" id="lampL"></div>
+      <div class="hud-digits" id="digits" title="Double tap to fence!">
+        <div class="unit"><span class="num" id="dd">00</span><span class="lbl">DAYS</span></div>
+        <span class="sep">:</span>
+        <div class="unit"><span class="num" id="hh">00</span><span class="lbl">HRS</span></div>
+        <span class="sep">:</span>
+        <div class="unit"><span class="num" id="mm">00</span><span class="lbl">MIN</span></div>
+        <span class="sep">:</span>
+        <div class="unit"><span class="num" id="ss">00</span><span class="lbl">SEC</span></div>
+      </div>
+      <div class="lamp lamp-green" id="lampR"></div>
+    </div>
+
+    <div class="progress" aria-hidden="true"><div class="progress-bar" id="progress"></div></div>
+    <div class="hud-score" id="score" hidden>Xin Ying <b id="scoreVal">0</b> : <b>0</b> Birthday Blues</div>
+  </header>
+
+  <main>
+    <!-- Birthday phase (30 Oct) -->
+    <section id="celebration" class="section" hidden>
+      <div class="banner">
+        <svg class="salute" viewBox="0 0 200 100" aria-hidden="true">
+          <g class="salute-l">
+            <rect x="20" y="53" width="24" height="5" rx="1" fill="#2C4C70"/>
+            <path d="M44 45 C50 45 52 50 52 55.5 C52 61 50 66 44 66 Z" fill="#E0B24C" stroke="#2C4C70" stroke-width="1.5"/>
+            <rect x="52" y="54.5" width="116" height="2" fill="#54A6F7"/>
+          </g>
+          <g class="salute-r">
+            <rect x="20" y="53" width="24" height="5" rx="1" fill="#2C4C70"/>
+            <path d="M44 45 C50 45 52 50 52 55.5 C52 61 50 66 44 66 Z" fill="#E0B24C" stroke="#2C4C70" stroke-width="1.5"/>
+            <rect x="52" y="54.5" width="116" height="2" fill="#54A6F7"/>
+          </g>
+        </svg>
+        <h2 class="banner-title">Happy 17th birthday, <em data-name>Xin Ying</em>!!</h2>
+      </div>
+
+      <div class="cake-stage px-frame">
+        <span class="px-corner tl"></span><span class="px-corner tr"></span><span class="px-corner bl"></span><span class="px-corner br"></span>
+        <div class="cake" id="cake">
+          <div class="plate-foot"></div>
+          <div class="plate"></div>
+          <div class="tier tier-1">
+            <div class="frosting-scallop"></div>
+            <div class="pearls"><span></span><span></span><span></span><span></span><span></span></div>
+            <span class="tier-badge" id="ageBadge">17</span>
+          </div>
+          <div class="tier tier-2">
+            <div class="frosting-scallop"></div>
+            <div class="pearls"><span></span><span></span><span></span></div>
+          </div>
+          <div class="candles" id="candles"></div>
+        </div>
+        <div class="cake-controls">
+          <p id="cakeHint" class="cake-hint"></p>
+          <div class="mic-meter" id="micMeter" hidden><span id="micFill"></span></div>
+          <div class="cake-buttons">
+            <button type="button" id="micBtn" class="btn btn-primary">Blow into mic</button>
+            <button type="button" id="tapBtn" class="btn btn-ghost">Tap to blow out</button>
+            <button type="button" id="relightBtn" class="btn btn-ghost" hidden>Relight candles</button>
+          </div>
+          <p class="tiny muted">(or tap each candle one by one)</p>
+        </div>
+      </div>
+
+      <div id="aftermath" hidden>
+        <section class="sub-section">
+          <div class="section-head">
+            <h3 class="section-title">for you :)</h3>
+          </div>
+          <button type="button" class="envelope" id="envelope" aria-label="Open note">
+            <span class="env-peek"></span>
+            <span class="env-pocket"></span>
+            <span class="env-flap"></span>
+            <span class="seal">XY</span>
+          </button>
+          <p class="tiny muted center" id="envHint">tap the seal to open</p>
+          <article class="letter-paper px-frame" id="letter" hidden></article>
+        </section>
+
+        <section class="sub-section">
+          <div class="section-head">
+            <h3 class="section-title">photo album</h3>
+          </div>
+          <div class="scrapbook" id="scrapbook"></div>
+        </section>
+      </div>
+    </section>
+
+    <!-- Daily Countdown Cards -->
+    <section class="section" id="adventSection">
+      <div class="section-head">
+        <h2 class="section-title">daily countdown</h2>
+        <p class="muted">one unlocks every day leading up to 30 oct</p>
+      </div>
+      <div class="advent-grid" id="advent"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span class="footer-credit">
+      <svg class="px-heart" viewBox="0 0 13 12" shape-rendering="crispEdges" aria-hidden="true">
+        <rect x="2" y="1" width="3" height="1" fill="#54A6F7"/>
+        <rect x="8" y="1" width="3" height="1" fill="#54A6F7"/>
+        <rect x="1" y="2" width="5" height="1" fill="#54A6F7"/>
+        <rect x="7" y="2" width="5" height="1" fill="#54A6F7"/>
+        <rect x="1" y="3" width="11" height="3" fill="#54A6F7"/>
+        <rect x="2" y="6" width="9" height="2" fill="#54A6F7"/>
+        <rect x="3" y="8" width="7" height="1" fill="#54A6F7"/>
+        <rect x="4" y="9" width="5" height="1" fill="#54A6F7"/>
+        <rect x="5" y="10" width="3" height="1" fill="#54A6F7"/>
+        <rect x="6" y="11" width="1" height="1" fill="#54A6F7"/>
+        <rect x="2" y="3" width="2" height="1" fill="#FFFFFF"/>
+      </svg>
+      <span id="fromName">from ur hb, josiah</span>
+    </span>
+    <button type="button" id="yoyoBtn" class="yoyo-btn" aria-label="yoyo" title="yoyo">
+      <span class="yoyo-string"></span>
+      <svg class="yoyo-disc" viewBox="0 0 20 20" shape-rendering="crispEdges" aria-hidden="true">
+        <rect x="6" y="1" width="8" height="1" fill="#2C4C70"/>
+        <rect x="4" y="2" width="12" height="1" fill="#2C4C70"/>
+        <rect x="2" y="4" width="16" height="12" fill="#2C4C70"/>
+        <rect x="4" y="17" width="12" height="1" fill="#2C4C70"/>
+        <rect x="6" y="18" width="8" height="1" fill="#2C4C70"/>
+        <rect x="6" y="2" width="8" height="16" fill="#54A6F7"/>
+        <rect x="4" y="4" width="12" height="12" fill="#54A6F7"/>
+        <rect x="3" y="6" width="14" height="8" fill="#54A6F7"/>
+        <rect x="5" y="4" width="3" height="2" fill="#9ED0FC"/>
+        <rect x="7" y="7" width="6" height="6" fill="#FFFFFF"/>
+        <rect x="9" y="9" width="2" height="2" fill="#E0B24C"/>
+      </svg>
+    </button>
+    <button type="button" id="termBtn" class="term-btn" aria-label="Open console" title="Secret console">&gt;_</button>
+  </footer>
+
+  <!-- Stray Kids Compass Music Player -->
+  <div class="player px-frame" id="player">
+    <canvas id="viz" aria-hidden="true"></canvas>
+    <button type="button" class="disc" id="discBtn" aria-label="Play or pause">
+      <img src="photos/compass.jpg" alt="Stray Kids compass" class="disc-compass">
+    </button>
+    <div class="p-info">
+      <div class="p-title" id="pTitle">Social Path</div>
+      <div class="p-artist" id="pArtist">Stray Kids</div>
+      <input type="range" id="pSeek" min="0" max="1000" value="0" aria-label="Seek">
+      <div class="p-time"><span id="pCur">0:00</span><span id="pDur">0:00</span></div>
+    </div>
+    <div class="p-controls">
+      <button type="button" class="icon-btn" id="pPrev" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+      <button type="button" class="icon-btn p-play" id="pPlay" aria-label="Play"></button>
+      <button type="button" class="icon-btn" id="pNext" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+      <button type="button" class="icon-btn" id="pMore" aria-label="Playlist"><svg viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h12v2H3z"/></svg></button>
+    </div>
+    <div class="p-panel px-frame" id="pPanel" hidden>
+      <div class="p-panel-head">
+        <img src="photos/compass.jpg" alt="" class="p-panel-compass">
+        <span>Stray Kids playlist</span>
+      </div>
+      <label class="p-row"><span>Volume</span><input type="range" id="pVol" min="0" max="100" value="80"></label>
+      <label class="p-row"><span>Sound effects</span><input type="checkbox" id="pSfx" checked></label>
+      <ol class="p-tracks" id="pTracks"></ol>
+      <a class="p-ext" id="pExt" target="_blank" rel="noopener">Open on Spotify ↗</a>
+    </div>
+  </div>
+
+  <!-- Daily Card Modal -->
+  <div class="overlay" id="modal" hidden>
+    <div class="modal px-frame" id="modalBox" role="dialog" aria-modal="true">
+      <span class="px-corner tl"></span><span class="px-corner tr"></span><span class="px-corner bl"></span><span class="px-corner br"></span>
+      <button type="button" class="modal-close" data-close aria-label="Close">✕</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- Password Modal -->
+  <div class="overlay" id="passModal" hidden>
+    <div class="modal pass-modal px-frame" role="dialog" aria-modal="true">
+      <span class="px-corner tl"></span><span class="px-corner tr"></span><span class="px-corner bl"></span><span class="px-corner br"></span>
+      <button type="button" class="modal-close" data-close aria-label="Close">✕</button>
+      <h3 class="card-title">Unlock preview</h3>
+      <p class="muted" style="font-size:.9rem;margin:.3rem 0 1rem">enter password to test all days &amp; the 30 oct birthday cake early</p>
+      <form id="passForm" class="pass-form">
+        <input type="password" id="passInput" class="pass-input" placeholder="password" autocomplete="off" spellcheck="false">
+        <button type="submit" class="btn btn-primary">Unlock</button>
+      </form>
+      <p id="passErr" class="pass-err" hidden>wrong password!!</p>
+    </div>
+  </div>
+
+  <!-- Secret Console -->
+  <div class="overlay" id="terminal" hidden>
+    <div class="terminal px-frame" role="dialog" aria-modal="true">
+      <div class="term-bar"><span id="termTitle">xinying@bday:~</span><button type="button" class="term-close" data-close aria-label="Close">✕</button></div>
+      <div class="term-out" id="termOut"></div>
+      <form class="term-line" id="termForm"><span class="prompt">&gt;</span><input id="termIn" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off" aria-label="Console input"></form>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="overlay" id="lightbox" hidden>
+    <figure class="lightbox-fig"><div id="lbMedia"></div><figcaption id="lbCap"></figcaption></figure>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <script src="content.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

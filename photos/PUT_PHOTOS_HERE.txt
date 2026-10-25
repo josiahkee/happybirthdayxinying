@@ -1,0 +1,5 @@
+Already included:
+  - ../image.png (full 2026.06.03 인생네컷 strip)
+  - cut1.png, cut2.png, cut3.png, cut4.png (individual frames extracted from image.png)
+
+You can drop any extra photos here and add them to `scrapbook` in content.js!

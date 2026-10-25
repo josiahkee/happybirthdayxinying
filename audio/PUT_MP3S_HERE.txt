@@ -1,0 +1,7 @@
+Optional: put MP3 files here to play them directly inside the player:
+  - social-path.mp3    (Stray Kids - Social Path feat. LiSA)
+  - respirator.mp3     (HAN & Seungmin - Respirator)
+  - cinema.mp3         (Lee Know & Seungmin - CINEMA)
+  - night-english.mp3  (Stray Kids - NIGHT English ver.)
+
+If left empty, the site automatically plays built-in Cobalt Lofi & 8-bit Happy Birthday synths and gives 1-tap Spotify/YouTube links for each song!
